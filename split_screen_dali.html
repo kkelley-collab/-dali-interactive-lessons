@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Signika', 'DIN 2014', Arial, sans-serif;
             height: 100vh;
             overflow: hidden;
         }
@@ -24,7 +24,7 @@
 
         .artwork-panel {
             flex: 1;
-            background: #1a1a1a;
+            background: #231f20;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -49,9 +49,9 @@
 
         .highlight-overlay {
             position: absolute;
-            border: 3px solid #FFD700;
+            border: 3px solid #eab06b;
             border-radius: 50%;
-            background: rgba(255, 215, 0, 0.2);
+            background: rgba(234, 176, 107, 0.2);
             opacity: 0;
             transition: all 0.8s ease;
             pointer-events: none;
@@ -84,7 +84,7 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+            background: linear-gradient(90deg, #cd234c, #53c8e9);
             width: 25%;
             transition: width 0.5s ease;
         }
@@ -99,7 +99,7 @@
 
         .tab-indicator {
             display: inline-block;
-            background: #FF6B6B;
+            background: #cd234c;
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
@@ -108,21 +108,24 @@
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-family: 'DIN 2014', Arial, sans-serif;
         }
 
         .section-title {
             font-size: 2.5em;
-            color: #333;
+            color: #231f20;
             margin-bottom: 20px;
             line-height: 1.2;
+            font-family: 'DIN 2014', Arial, sans-serif;
         }
 
         .hook {
             font-size: 1.3em;
-            color: #666;
+            color: #565759;
             font-style: italic;
             margin-bottom: 30px;
             line-height: 1.6;
+            font-family: 'Baskerville', Georgia, serif;
         }
 
         .quick-facts {
@@ -134,15 +137,18 @@
         }
 
         .quick-facts h3 {
-            color: #FF6B6B;
+            color: #cd234c;
             margin-bottom: 15px;
             font-size: 1.2em;
+            font-family: 'DIN 2014', Arial, sans-serif;
         }
 
         .fact-item {
             margin: 10px 0;
             padding: 8px 0;
             border-bottom: 1px solid #eee;
+            font-family: 'Signika', Arial, sans-serif;
+            color: #231f20;
         }
 
         .fact-item:last-child {
@@ -150,7 +156,7 @@
         }
 
         .quote-box {
-            background: #4ECDC4;
+            background: linear-gradient(135deg, #53c8e9, #233e99);
             color: white;
             padding: 30px;
             border-radius: 12px;
@@ -158,6 +164,7 @@
             font-style: italic;
             margin: 30px 0;
             position: relative;
+            font-family: 'Baskerville', Georgia, serif;
         }
 
         .quote-box::before {
@@ -188,25 +195,46 @@
         }
 
         .nav-dot.active {
-            background: #FF6B6B;
+            background: #cd234c;
             transform: scale(1.3);
         }
 
-        .continue-btn {
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1em;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: transform 0.3s ease;
+        .navigation-buttons {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 200;
         }
 
-        .continue-btn:hover {
+        .nav-btn {
+            background: linear-gradient(45deg, #cd234c, #233e99);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'DIN 2014', Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .nav-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:disabled {
+            background: #565759;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .nav-btn:disabled:hover {
+            transform: none;
+            box-shadow: none;
         }
     </style>
 </head>
@@ -215,8 +243,8 @@
         <!-- Artwork Panel -->
         <div class="artwork-panel">
             <div class="artwork-container">
-                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop" 
-                     alt="Dalí Artwork" class="artwork-image" id="artworkImage">
+                <img src="https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg" 
+                     alt="The Persistence of Memory by Salvador Dalí" class="artwork-image" id="artworkImage">
                 
                 <!-- Highlight overlays for different sections -->
                 <div class="highlight-overlay" id="highlight1" style="top: 20%; left: 30%; width: 100px; height: 80px;"></div>
@@ -233,7 +261,6 @@
 
             <!-- Tab 1: Meet the Artwork -->
             <div class="content-section" data-tab="1">
-                <div class="tab-indicator">Tab 1: Meet the Artwork</div>
                 <h1 class="section-title">The Persistence of Memory</h1>
                 <p class="hook">Imagine time itself melting like cheese in the Spanish sun—this is where Dalí's most famous vision begins.</p>
                 
@@ -246,13 +273,10 @@
                 </div>
 
                 <p><strong>First Impression:</strong> Visitors are immediately drawn to the impossible sight of pocket watches drooping like fabric over branches and edges. The painting creates an unsettling yet fascinating sense of time suspended, warped, and questioned.</p>
-                
-                <button class="continue-btn" onclick="nextSection()">Continue to Dalí's Story →</button>
             </div>
 
             <!-- Tab 2: Dalí's Story -->
             <div class="content-section" data-tab="2" style="display: none;">
-                <div class="tab-indicator">Tab 2: Dalí's Story</div>
                 <h1 class="section-title">The Moment of Inspiration</h1>
                 
                 <p class="hook">On a hot August evening in 1931, Dalí watched Camembert cheese melting in the Catalonian heat...</p>
@@ -265,13 +289,10 @@
                 <p><strong>Personal Context:</strong> Dalí was 27 years old, newly famous, and deeply influenced by Freudian psychoanalysis. He had recently joined the Surrealist movement and was exploring the relationship between dreams and reality. This painting emerged during his most productive period, when he was developing his "paranoiac-critical method."</p>
 
                 <p><strong>What this reveals:</strong> The melting clocks show Dalí's fascination with the relativity of time and the fluidity of consciousness—themes that would define his entire career.</p>
-                
-                <button class="continue-btn" onclick="nextSection()">Look Closer →</button>
             </div>
 
             <!-- Tab 3: Looking Closer -->
             <div class="content-section" data-tab="3" style="display: none;">
-                <div class="tab-indicator">Tab 3: Looking Closer</div>
                 <h1 class="section-title">Hidden Symbols & Techniques</h1>
                 
                 <p class="hook">Every element in this small canvas carries layers of meaning, from Freudian symbols to personal memories.</p>
@@ -287,16 +308,13 @@
 
                 <p><strong>Key Themes:</strong> The painting explores time, memory, death, and the unconscious mind—core concepts of Surrealism and psychoanalysis.</p>
 
-                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                    <strong>Gallery Strategy:</strong> Ask visitors "What time means to them" and "How memory changes over time" to create personal connections.
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #eab06b;">
+                    <strong style="color: #231f20; font-family: 'DIN 2014', Arial, sans-serif;">Gallery Strategy:</strong> Ask visitors "What time means to them" and "How memory changes over time" to create personal connections.
                 </div>
-                
-                <button class="continue-btn" onclick="nextSection()">Make Connections →</button>
             </div>
 
             <!-- Tab 4: Making Connections -->
             <div class="content-section" data-tab="4" style="display: none;">
-                <div class="tab-indicator">Tab 4: Making Connections</div>
                 <h1 class="section-title">The Bigger Picture</h1>
                 
                 <p class="hook">This tiny painting became one of the most recognizable images in art history—but why?</p>
@@ -316,9 +334,13 @@
                 </div>
 
                 <p><strong>Course Continuity:</strong> Next, we'll explore how Dalí developed these themes in his larger works and theatrical performances.</p>
-                
-                <button class="continue-btn" onclick="startKnowledgeCheck()">Knowledge Check →</button>
             </div>
+        </div>
+
+        <!-- Navigation buttons -->
+        <div class="navigation-buttons">
+            <button class="nav-btn" id="prevBtn" onclick="prevSection()" disabled>← Previous</button>
+            <button class="nav-btn" id="nextBtn" onclick="nextSection()">Next →</button>
         </div>
 
         <!-- Navigation dots -->
@@ -337,6 +359,13 @@
         function nextSection() {
             if (currentSection < totalSections) {
                 currentSection++;
+                showSection(currentSection);
+            }
+        }
+
+        function prevSection() {
+            if (currentSection > 1) {
+                currentSection--;
                 showSection(currentSection);
             }
         }
@@ -364,6 +393,21 @@
             navDots.forEach((dot, index) => {
                 dot.classList.toggle('active', index + 1 === section);
             });
+            
+            // Update navigation buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = (section === 1);
+            nextBtn.disabled = (section === totalSections);
+            
+            if (section === totalSections) {
+                nextBtn.textContent = 'Complete';
+                nextBtn.onclick = startKnowledgeCheck;
+            } else {
+                nextBtn.textContent = 'Next →';
+                nextBtn.onclick = nextSection;
+            }
             
             // Show relevant highlights
             hideAllHighlights();
