@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dalí Artwork Explorer - Layered Discovery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .discovery-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .artwork-stage {
+            position: relative;
+            max-width: 800px;
+            max-height: 600px;
+            margin: 0 auto;
+        }
+
+        .base-artwork {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            transition: all 0.5s ease;
+        }
+
+        .info-layer {
+            position: absolute;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            max-width: 300px;
+        }
+
+        .info-layer.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .info-layer h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .info-layer p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .close-layer {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .discovery-hotspot {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0.3) 70%);
+            border: 3px solid #FFD700;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: scale(0);
+            animation: appear 0.8s ease forwards, pulse 2s infinite;
+            transition: all 0.3s ease;
+        }
+
+        .discovery-hotspot:hover {
+            transform: scale(1.2);
+            background: radial-gradient(circle, rgba(255,215,0,1) 0%, rgba(255,215,0,0.5) 70%);
+        }
+
+        .discovery-hotspot.clicked {
+            background: radial-gradient(circle, rgba(46, 204, 113, 0.8) 0%, rgba(46, 204, 113, 0.3) 70%);
+            border-color: #2ecc71;
+        }
+
+        @keyframes appear {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+        }
+
+        .control-panel {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .layer-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .layer-btn.basics {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .layer-btn.story {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .layer-btn.details {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        .layer-btn.connections {
+            background: linear-gradient(45deg, #43e97b, #38f9d7);
+            color: white;
+        }
+
+        .layer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .layer-btn.active {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .discovery-counter {
+            color: #667eea;
+        }
+
+        /* Layer-specific hotspot positions */
+        .hotspot-basics-1 { top: 15%; left: 25%; animation-delay: 0.2s; }
+        .hotspot-basics-2 { top: 60%; right: 30%; animation-delay: 0.4s; }
+        .hotspot-basics-3 { bottom: 20%; left: 40%; animation-delay: 0.6s; }
+
+        .hotspot-story-1 { top: 30%; left: 15%; animation-delay: 0.3s; }
+        .hotspot-story-2 { top: 45%; right: 20%; animation-delay: 0.5s; }
+
+        .hotspot-details-1 { top: 25%; left: 35%; animation-delay: 0.2s; }
+        .hotspot-details-2 { top: 40%; right: 25%; animation-delay: 0.4s; }
+        .hotspot-details-3 { bottom: 30%; left: 20%; animation-delay: 0.6s; }
+        .hotspot-details-4 { bottom: 35%; right: 35%; animation-delay: 0.8s; }
+
+        .hotspot-connections-1 { top: 20%; left: 30%; animation-delay: 0.3s; }
+        .hotspot-connections-2 { top: 50%; right: 30%; animation-delay: 0.5s; }
+
+        /* Info layer positioning */
+        .layer-basics-1 { top: -20px; left: -320px; }
+        .layer-basics-2 { bottom: -20px; right: -320px; }
+        .layer-basics-3 { bottom: -150px; left: -250px; }
+
+        .layer-story-1 { top: -20px; left: -320px; }
+        .layer-story-2 { top: 20px; right: -320px; }
+
+        .layer-details-1 { top: -100px; left: -200px; }
+        .layer-details-2 { top: -50px; right: -320px; }
+        .layer-details-3 { bottom: -20px; left: -320px; }
+        .layer-details-4 { bottom: -100px; right: -200px; }
+
+        .layer-connections-1 { top: -80px; left: -320px; }
+        .layer-connections-2 { top: -50px; right: -320px; }
+
+        .quote-highlight {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="discovery-container">
+        <div class="progress-indicator">
+            <span>Discovered: </span>
+            <span class="discovery-counter">0/3</span>
+            <span> | Current Layer: <span id="currentLayer">Meet the Artwork</span></span>
+        </div>
+
+        <div class="artwork-stage">
+            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop" 
+                 alt="The Persistence of Memory by Salvador Dalí" class="base-artwork">
+
+            <!-- BASICS LAYER HOTSPOTS & INFO -->
+            <div class="discovery-hotspot hotspot-basics-1 layer-basics" data-info="basics-1"></div>
+            <div class="info-layer layer-basics-1" id="info-basics-1">
+                <button class="close-layer" onclick="closeLayer('basics-1')">×</button>
+                <h3>The Persistence of Memory</h3>
+                <p><strong>Created:</strong> 1931<br>
+                <strong>Size:</strong> Just 24 × 33 cm (smaller than a laptop!)<br>
+                <strong>Medium:</strong> Oil on canvas</p>
+                <p>This tiny painting became one of the most famous images in art history. Dalí painted it in just a few hours.</p>
+            </div>
+
+            <div class="discovery-hotspot hotspot-basics-2 layer-basics" data-info="basics-2"></div>
+            <div class="info-layer layer-basics-2" id="info-basics-2">
+                <button class="close-layer" onclick="closeLayer('basics-2')">×</button>
+                <h3>First Impression</h3>
+                <p>Visitors are immediately struck by the impossible sight of melting timepieces. The image is both beautiful and deeply unsettling.</p>
+                <p><strong>What you see:</strong> Desert landscape, drooping clocks, a dead tree, and mysterious organic forms.</p>
+            </div>
+
+            <div class="discovery-hotspot hotspot-basics-3 layer-basics" data-info="basics-3"></div>
+            <div class="info-layer layer-basics-3" id="info-basics-3">
+                <button class="close-layer" onclick="closeLayer('basics-3')">×</button>
+                <h3>Museum Context</h3>
+                <p>Housed at the Museum of Modern Art in New York, this painting draws crowds daily. It's often the first Surrealist work people encounter.</p>
+                <p>The small scale surprises visitors who expect something monumental.</p>
+            </div>
+
+            <!-- STORY LAYER HOTSPOTS & INFO -->
+            <div class="discovery-hotspot hotspot-story-1 layer-story" data-info="story-1" style="display: none;"></div>
+            <div class="info-layer layer-story-1" id="info-story-1">
+                <button class="close-layer" onclick="closeLayer('story-1')">×</button>
+                <h3>The Inspiration Moment</h3>
+                <p>On a hot August evening in 1931, Dalí watched Camembert cheese melting in the Catalonian sun...</p>
+                <div class="quote-highlight">
+                    "I understood that I had to paint the disintegration of persistence of memory." —Dalí
+                </div>
+            </div>
+
+            <div class="discovery-hotspot hotspot-story-2 layer-story" data-info="story-2" style="display: none;"></div>
+            <div class="info-layer layer-story-2" id="info-story-2">
+                <button class="close-layer" onclick="closeLayer('story-2')">×</button>
+                <h3>Dalí at 27</h3>
+                <p>Newly famous and deeply influenced by Freud's psychoanalysis, Dalí was exploring dreams and the unconscious mind.</p>
+                <p>He had recently joined the Surrealist movement and was developing his revolutionary "paranoiac-critical method."</p>
+            </div>
+
+            <!-- DETAILS LAYER HOTSPOTS & INFO -->
+            <div class="discovery-hotspot hotspot-details-1 layer-details" data-info="details-1" style="display: none;"></div>
+            <div class="info-layer layer-details-1" id="info-details-1">
+                <button class="close-layer" onclick="closeLayer('details-1')">×</button>
+                <h3>The Melting Clocks</h3>
+                <p>Einstein's theory of relativity made visual. Time becomes fluid, malleable, and subjective.</p>
+                <p>Each clock shows a different time, suggesting the relativity of temporal experience.</p>
+            </div>
+
+            <div class="discovery-hotspot hotspot-details-2 layer-details" data-info="details-2" style="display: none;"></div>
+            <div class="info-layer layer-details-2" id="info-details-2">
+                <button class="close-layer" onclick="closeLayer('details-2')">×</button>
+                <h3>The Dead Olive Tree</h3>
+                <p>A recurring symbol in Dalí's work representing death, memory, and the passage of time.</p>
+                <p>The barren branch supports one of the drooping timepieces, linking mortality with temporal anxiety.</p>
+            </div>
+
+            <div class="discovery-hotspot hotspot-details-3 layer-details" data-info="details-3" style="display: none;"></div>
+            <div class="info-layer layer-details-3" id="info-details

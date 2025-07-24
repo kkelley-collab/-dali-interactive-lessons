@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dalí Artwork Explorer - Split Screen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .artwork-panel {
+            flex: 1;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .artwork-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .artwork-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .highlight-overlay {
+            position: absolute;
+            border: 3px solid #FFD700;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.2);
+            opacity: 0;
+            transition: all 0.8s ease;
+            pointer-events: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .highlight-overlay.active {
+            opacity: 1;
+        }
+
+        .content-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+            width: 25%;
+            transition: width 0.5s ease;
+        }
+
+        .content-section {
+            padding: 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tab-indicator {
+            display: inline-block;
+            background: #FF6B6B;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hook {
+            font-size: 1.3em;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .quick-facts {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .quick-facts h3 {
+            color: #FF6B6B;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .fact-item {
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .fact-item:last-child {
+            border-bottom: none;
+        }
+
+        .quote-box {
+            background: #4ECDC4;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-style: italic;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .quote-box::before {
+            content: '"';
+            font-size: 4em;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+
+        .navigation {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 200;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #FF6B6B;
+            transform: scale(1.3);
+        }
+
+        .continue-btn {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Artwork Panel -->
+        <div class="artwork-panel">
+            <div class="artwork-container">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop" 
+                     alt="Dalí Artwork" class="artwork-image" id="artworkImage">
+                
+                <!-- Highlight overlays for different sections -->
+                <div class="highlight-overlay" id="highlight1" style="top: 20%; left: 30%; width: 100px; height: 80px;"></div>
+                <div class="highlight-overlay" id="highlight2" style="top: 40%; right: 25%; width: 120px; height: 90px;"></div>
+                <div class="highlight-overlay" id="highlight3" style="bottom: 30%; left: 20%; width: 80px; height: 60px;"></div>
+            </div>
+        </div>
+
+        <!-- Content Panel -->
+        <div class="content-panel" id="contentPanel">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <!-- Tab 1: Meet the Artwork -->
+            <div class="content-section" data-tab="1">
+                <div class="tab-indicator">Tab 1: Meet the Artwork</div>
+                <h1 class="section-title">The Persistence of Memory</h1>
+                <p class="hook">Imagine time itself melting like cheese in the Spanish sun—this is where Dalí's most famous vision begins.</p>
+                
+                <div class="quick-facts">
+                    <h3>Quick Facts</h3>
+                    <div class="fact-item"><strong>Title:</strong> The Persistence of Memory (1931)</div>
+                    <div class="fact-item"><strong>Medium:</strong> Oil on canvas, 24 × 33 cm</div>
+                    <div class="fact-item"><strong>Key Elements:</strong> Melting clocks, desert landscape, dead tree</div>
+                    <div class="fact-item"><strong>Location:</strong> Museum of Modern Art, New York</div>
+                </div>
+
+                <p><strong>First Impression:</strong> Visitors are immediately drawn to the impossible sight of pocket watches drooping like fabric over branches and edges. The painting creates an unsettling yet fascinating sense of time suspended, warped, and questioned.</p>
+                
+                <button class="continue-btn" onclick="nextSection()">Continue to Dalí's Story →</button>
+            </div>
+
+            <!-- Tab 2: Dalí's Story -->
+            <div class="content-section" data-tab="2" style="display: none;">
+                <div class="tab-indicator">Tab 2: Dalí's Story</div>
+                <h1 class="section-title">The Moment of Inspiration</h1>
+                
+                <p class="hook">On a hot August evening in 1931, Dalí watched Camembert cheese melting in the Catalonian heat...</p>
+
+                <div class="quote-box">
+                    "The idea came to me when I saw some Camembert cheese melting in the sun. I understood that I had to paint the disintegration of persistence of memory."
+                    <div style="text-align: right; margin-top: 15px; font-size: 0.9em;">— Salvador Dalí</div>
+                </div>
+
+                <p><strong>Personal Context:</strong> Dalí was 27 years old, newly famous, and deeply influenced by Freudian psychoanalysis. He had recently joined the Surrealist movement and was exploring the relationship between dreams and reality. This painting emerged during his most productive period, when he was developing his "paranoiac-critical method."</p>
+
+                <p><strong>What this reveals:</strong> The melting clocks show Dalí's fascination with the relativity of time and the fluidity of consciousness—themes that would define his entire career.</p>
+                
+                <button class="continue-btn" onclick="nextSection()">Look Closer →</button>
+            </div>
+
+            <!-- Tab 3: Looking Closer -->
+            <div class="content-section" data-tab="3" style="display: none;">
+                <div class="tab-indicator">Tab 3: Looking Closer</div>
+                <h1 class="section-title">Hidden Symbols & Techniques</h1>
+                
+                <p class="hook">Every element in this small canvas carries layers of meaning, from Freudian symbols to personal memories.</p>
+
+                <p><strong>Visual Elements to Notice:</strong></p>
+                <ul style="margin: 20px 0; line-height: 1.8;">
+                    <li><strong>The melting clocks:</strong> Einstein's theory of relativity made visual</li>
+                    <li><strong>The dead olive tree:</strong> Dalí's recurring symbol of death and memory</li>
+                    <li><strong>The closed orange watch:</strong> Covered in ants, representing decay</li>
+                    <li><strong>The landscape:</strong> Port Lligat, Dalí's beloved coastal home</li>
+                    <li><strong>The fleshy form:</strong> A distorted profile, possibly Dalí himself</li>
+                </ul>
+
+                <p><strong>Key Themes:</strong> The painting explores time, memory, death, and the unconscious mind—core concepts of Surrealism and psychoanalysis.</p>
+
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <strong>Gallery Strategy:</strong> Ask visitors "What time means to them" and "How memory changes over time" to create personal connections.
+                </div>
+                
+                <button class="continue-btn" onclick="nextSection()">Make Connections →</button>
+            </div>
+
+            <!-- Tab 4: Making Connections -->
+            <div class="content-section" data-tab="4" style="display: none;">
+                <div class="tab-indicator">Tab 4: Making Connections</div>
+                <h1 class="section-title">The Bigger Picture</h1>
+                
+                <p class="hook">This tiny painting became one of the most recognizable images in art history—but why?</p>
+
+                <p><strong>Connections:</strong></p>
+                <ul style="margin: 20px 0; line-height: 1.8;">
+                    <li><strong>To Surrealism:</strong> Perfect example of making the impossible seem real</li>
+                    <li><strong>To Dalí's work:</strong> Introduces techniques he'd use for decades</li>
+                    <li><strong>To art history:</strong> Bridges classical technique with modern psychology</li>
+                </ul>
+
+                <div class="quick-facts">
+                    <h3>Key Takeaways</h3>
+                    <div class="fact-item">Small scale, massive impact—proves that size doesn't determine significance</div>
+                    <div class="fact-item">Perfect fusion of technical skill with revolutionary concepts</div>
+                    <div class="fact-item">Gateway to understanding Surrealism and modern art's relationship with science</div>
+                </div>
+
+                <p><strong>Course Continuity:</strong> Next, we'll explore how Dalí developed these themes in his larger works and theatrical performances.</p>
+                
+                <button class="continue-btn" onclick="startKnowledgeCheck()">Knowledge Check →</button>
+            </div>
+        </div>
+
+        <!-- Navigation dots -->
+        <div class="navigation">
+            <div class="nav-dot active" onclick="goToSection(1)"></div>
+            <div class="nav-dot" onclick="goToSection(2)"></div>
+            <div class="nav-dot" onclick="goToSection(3)"></div>
+            <div class="nav-dot" onclick="goToSection(4)"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 1;
+        const totalSections = 4;
+
+        function nextSection() {
+            if (currentSection < totalSections) {
+                currentSection++;
+                showSection(currentSection);
+            }
+        }
+
+        function goToSection(section) {
+            currentSection = section;
+            showSection(section);
+        }
+
+        function showSection(section) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(s => s.style.display = 'none');
+            
+            // Show current section
+            const currentSectionEl = document.querySelector(`[data-tab="${section}"]`);
+            currentSectionEl.style.display = 'block';
+            
+            // Update progress bar
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = `${(section / totalSections) * 100}%`;
+            
+            // Update navigation dots
+            const navDots = document.querySelectorAll('.nav-dot');
+            navDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === section);
+            });
+            
+            // Show relevant highlights
+            hideAllHighlights();
+            if (section === 3) { // Looking Closer section
+                showHighlight(1);
+                setTimeout(() => showHighlight(2), 1000);
+                setTimeout(() => showHighlight(3), 2000);
+            }
+            
+            // Scroll to top of content
+            document.getElementById('contentPanel').scrollTop = 0;
+        }
+
+        function hideAllHighlights() {
+            const highlights = document.querySelectorAll('.highlight-overlay');
+            highlights.forEach(h => h.classList.remove('active'));
+        }
+
+        function showHighlight(num) {
+            const highlight = document.getElementById(`highlight${num}`);
+            highlight.classList.add('active');
+        }
+
+        function startKnowledgeCheck() {
+            alert('Knowledge Check would open here with assessment questions!');
+        }
+
+        // Initialize
+        showSection(1);
+    </script>
+</body>
+</html>
