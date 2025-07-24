@@ -1,18 +1,33 @@
-<!-- Canvas-Compatible Version - Simplified HTML -->
-<div style="max-width: 1200px; margin: 0 auto; font-family: Georgia, serif;">
+function showTab(tabId) {
+    // Hide all tabs
+    var tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(function(tab) {
+        tab.style.display = 'none';
+    });
+    
+    // Reset all buttons
+    var buttons = document.querySelectorAll('button[id^="btn"]');
+    buttons.forEach(function(btn) {
+        btn.style.background = '#565759';
+        btn.style.color = 'white';
+    });
+    
+    // Show selected tab
+    document.getElementById(tabId).style.display<!-- Canvas-Compatible Version - Simplified HTML -->
+<div style="max-width: 1200px; margin: 0 auto; font-family: 'Signika', 'DIN 2014', Arial, sans-serif;">
     
     <!-- Header -->
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px; margin-bottom: 20px;">
-        <h1 style="margin: 0; font-size: 2.5em;">The Persistence of Memory</h1>
+    <div style="background: linear-gradient(135deg, #cd234c 0%, #233e99 100%); color: white; padding: 30px; text-align: center; border-radius: 10px; margin-bottom: 20px;">
+        <h1 style="margin: 0; font-size: 2.5em; font-family: 'DIN 2014', Arial, sans-serif;">The Persistence of Memory</h1>
         <p style="margin: 10px 0 0 0; font-size: 1.2em; opacity: 0.9;">Interactive Exploration with Salvador Dalí</p>
     </div>
 
     <!-- Tab Navigation -->
     <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
-        <button onclick="showTab('tab1')" id="btn1" style="flex: 1; padding: 15px; background: #FF6B6B; color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; min-width: 200px;">1. Meet the Artwork</button>
-        <button onclick="showTab('tab2')" id="btn2" style="flex: 1; padding: 15px; background: #ddd; color: #666; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; min-width: 200px;">2. Dalí's Story</button>
-        <button onclick="showTab('tab3')" id="btn3" style="flex: 1; padding: 15px; background: #ddd; color: #666; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; min-width: 200px;">3. Looking Closer</button>
-        <button onclick="showTab('tab4')" id="btn4" style="flex: 1; padding: 15px; background: #ddd; color: #666; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; min-width: 200px;">4. Making Connections</button>
+        <button onclick="showTab('tab1')" id="btn1" style="flex: 1; padding: 15px; background: #cd234c; color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; min-width: 200px; font-family: 'DIN 2014', Arial, sans-serif;">Meet the Artwork</button>
+        <button onclick="showTab('tab2')" id="btn2" style="flex: 1; padding: 15px; background: #565759; color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; min-width: 200px; font-family: 'DIN 2014', Arial, sans-serif;">Dalí's Story</button>
+        <button onclick="showTab('tab3')" id="btn3" style="flex: 1; padding: 15px; background: #565759; color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; min-width: 200px; font-family: 'DIN 2014', Arial, sans-serif;">Looking Closer</button>
+        <button onclick="showTab('tab4')" id="btn4" style="flex: 1; padding: 15px; background: #565759; color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; min-width: 200px; font-family: 'DIN 2014', Arial, sans-serif;">Making Connections</button>
     </div>
 
     <!-- Main Content Area -->
@@ -20,11 +35,11 @@
         
         <!-- Artwork Panel -->
         <div style="flex: 1; min-width: 400px;">
-            <div style="background: #1a1a1a; padding: 20px; border-radius: 15px; text-align: center;">
+            <div style="background: #231f20; padding: 20px; border-radius: 15px; text-align: center;">
                 <img src="https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg" 
                      alt="The Persistence of Memory by Salvador Dalí" 
                      style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                <p style="color: white; margin-top: 15px; font-style: italic;">The Persistence of Memory (1931) - Oil on canvas, 24 × 33 cm</p>
+                <p style="color: white; margin-top: 15px; font-style: italic; font-family: 'Baskerville', Georgia, serif;">The Persistence of Memory (1931) - Oil on canvas, 24 × 33 cm</p>
             </div>
         </div>
 
@@ -34,15 +49,14 @@
             <!-- Tab 1: Meet the Artwork -->
             <div id="tab1" class="tab-content">
                 <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                    <div style="background: #FF6B6B; color: white; padding: 8px 16px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: bold; margin-bottom: 20px;">TAB 1: MEET THE ARTWORK</div>
                     
-                    <h2 style="color: #333; margin-bottom: 20px; font-size: 2em;">First Encounter</h2>
+                    <h2 style="color: #231f20; margin-bottom: 20px; font-size: 2em; font-family: 'DIN 2014', Arial, sans-serif;">First Encounter</h2>
                     
-                    <p style="font-size: 1.2em; color: #666; font-style: italic; margin-bottom: 25px; line-height: 1.6;">Imagine time itself melting like cheese in the Spanish sun—this is where Dalí's most famous vision begins.</p>
+                    <p style="font-size: 1.2em; color: #565759; font-style: italic; margin-bottom: 25px; line-height: 1.6; font-family: 'Baskerville', Georgia, serif;">Imagine time itself melting like cheese in the Spanish sun—this is where Dalí's most famous vision begins.</p>
                     
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h3 style="color: #FF6B6B; margin-bottom: 15px;">Quick Facts</h3>
-                        <ul style="line-height: 1.8; color: #333;">
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #7ba550;">
+                        <h3 style="color: #cd234c; margin-bottom: 15px; font-family: 'DIN 2014', Arial, sans-serif;">Quick Facts</h3>
+                        <ul style="line-height: 1.8; color: #231f20; font-family: 'Signika', Arial, sans-serif;">
                             <li><strong>Title:</strong> The Persistence of Memory (1931)</li>
                             <li><strong>Medium:</strong> Oil on canvas, 24 × 33 cm</li>
                             <li><strong>Key Elements:</strong> Melting clocks, desert landscape, dead tree</li>
@@ -50,45 +64,43 @@
                         </ul>
                     </div>
                     
-                    <h4 style="color: #333; margin: 20px 0 10px 0;">Visual First Impression:</h4>
-                    <p style="line-height: 1.7; color: #555;">Visitors are immediately drawn to the impossible sight of pocket watches drooping like fabric over branches and edges. The painting creates an unsettling yet fascinating sense of time suspended, warped, and questioned.</p>
+                    <h4 style="color: #231f20; margin: 20px 0 10px 0; font-family: 'DIN 2014', Arial, sans-serif;">Visual First Impression:</h4>
+                    <p style="line-height: 1.7; color: #565759; font-family: 'Signika', Arial, sans-serif;">Visitors are immediately drawn to the impossible sight of pocket watches drooping like fabric over branches and edges. The painting creates an unsettling yet fascinating sense of time suspended, warped, and questioned.</p>
                 </div>
             </div>
 
             <!-- Tab 2: Dalí's Story -->
             <div id="tab2" class="tab-content" style="display: none;">
                 <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                    <div style="background: #f093fb; color: white; padding: 8px 16px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: bold; margin-bottom: 20px;">TAB 2: DALÍ'S STORY</div>
                     
-                    <h2 style="color: #333; margin-bottom: 20px; font-size: 2em;">The Moment of Inspiration</h2>
+                    <h2 style="color: #231f20; margin-bottom: 20px; font-size: 2em; font-family: 'DIN 2014', Arial, sans-serif;">The Moment of Inspiration</h2>
                     
-                    <p style="font-size: 1.2em; color: #666; font-style: italic; margin-bottom: 25px; line-height: 1.6;">On a hot August evening in 1931, Dalí watched Camembert cheese melting in the Catalonian heat...</p>
+                    <p style="font-size: 1.2em; color: #565759; font-style: italic; margin-bottom: 25px; line-height: 1.6; font-family: 'Baskerville', Georgia, serif;">On a hot August evening in 1931, Dalí watched Camembert cheese melting in the Catalonian heat...</p>
                     
-                    <div style="background: linear-gradient(135deg, #4ECDC4, #44A08D); color: white; padding: 25px; border-radius: 12px; margin: 25px 0; position: relative;">
+                    <div style="background: linear-gradient(135deg, #53c8e9, #233e99); color: white; padding: 25px; border-radius: 12px; margin: 25px 0; position: relative;">
                         <div style="font-size: 3em; position: absolute; top: -10px; left: 20px; opacity: 0.3;">"</div>
-                        <p style="font-size: 1.1em; font-style: italic; margin: 0; padding-left: 20px;">The idea came to me when I saw some Camembert cheese melting in the sun. I understood that I had to paint the disintegration of persistence of memory.</p>
-                        <p style="text-align: right; margin-top: 15px; font-size: 0.9em;">— Salvador Dalí</p>
+                        <p style="font-size: 1.1em; font-style: italic; margin: 0; padding-left: 20px; font-family: 'Baskerville', Georgia, serif;">The idea came to me when I saw some Camembert cheese melting in the sun. I understood that I had to paint the disintegration of persistence of memory.</p>
+                        <p style="text-align: right; margin-top: 15px; font-size: 0.9em; font-family: 'DIN 2014', Arial, sans-serif;">— Salvador Dalí</p>
                     </div>
                     
-                    <h4 style="color: #333; margin: 25px 0 10px 0;">Personal Context:</h4>
-                    <p style="line-height: 1.7; color: #555; margin-bottom: 20px;">Dalí was 27 years old, newly famous, and deeply influenced by Freudian psychoanalysis. He had recently joined the Surrealist movement and was exploring the relationship between dreams and reality. This painting emerged during his most productive period, when he was developing his "paranoiac-critical method."</p>
+                    <h4 style="color: #231f20; margin: 25px 0 10px 0; font-family: 'DIN 2014', Arial, sans-serif;">Personal Context:</h4>
+                    <p style="line-height: 1.7; color: #565759; margin-bottom: 20px; font-family: 'Signika', Arial, sans-serif;">Dalí was 27 years old, newly famous, and deeply influenced by Freudian psychoanalysis. He had recently joined the Surrealist movement and was exploring the relationship between dreams and reality. This painting emerged during his most productive period, when he was developing his "paranoiac-critical method."</p>
                     
-                    <h4 style="color: #333; margin: 20px 0 10px 0;">What this reveals:</h4>
-                    <p style="line-height: 1.7; color: #555;">The melting clocks show Dalí's fascination with the relativity of time and the fluidity of consciousness—themes that would define his entire career.</p>
+                    <h4 style="color: #231f20; margin: 20px 0 10px 0; font-family: 'DIN 2014', Arial, sans-serif;">What this reveals:</h4>
+                    <p style="line-height: 1.7; color: #565759; font-family: 'Signika', Arial, sans-serif;">The melting clocks show Dalí's fascination with the relativity of time and the fluidity of consciousness—themes that would define his entire career.</p>
                 </div>
             </div>
 
             <!-- Tab 3: Looking Closer -->
             <div id="tab3" class="tab-content" style="display: none;">
                 <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                    <div style="background: #4facfe; color: white; padding: 8px 16px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: bold; margin-bottom: 20px;">TAB 3: LOOKING CLOSER</div>
                     
-                    <h2 style="color: #333; margin-bottom: 20px; font-size: 2em;">Hidden Symbols & Techniques</h2>
+                    <h2 style="color: #231f20; margin-bottom: 20px; font-size: 2em; font-family: 'DIN 2014', Arial, sans-serif;">Hidden Symbols & Techniques</h2>
                     
-                    <p style="font-size: 1.2em; color: #666; font-style: italic; margin-bottom: 25px; line-height: 1.6;">Every element in this small canvas carries layers of meaning, from Freudian symbols to personal memories.</p>
+                    <p style="font-size: 1.2em; color: #565759; font-style: italic; margin-bottom: 25px; line-height: 1.6; font-family: 'Baskerville', Georgia, serif;">Every element in this small canvas carries layers of meaning, from Freudian symbols to personal memories.</p>
                     
-                    <h4 style="color: #333; margin: 25px 0 15px 0;">Visual Elements to Notice:</h4>
-                    <ul style="line-height: 1.8; color: #555; margin-bottom: 25px;">
+                    <h4 style="color: #231f20; margin: 25px 0 15px 0; font-family: 'DIN 2014', Arial, sans-serif;">Visual Elements to Notice:</h4>
+                    <ul style="line-height: 1.8; color: #565759; margin-bottom: 25px; font-family: 'Signika', Arial, sans-serif;">
                         <li><strong>The melting clocks:</strong> Einstein's theory of relativity made visual</li>
                         <li><strong>The dead olive tree:</strong> Dalí's recurring symbol of death and memory</li>
                         <li><strong>The closed orange watch:</strong> Covered in ants, representing decay</li>
@@ -96,12 +108,12 @@
                         <li><strong>The fleshy form:</strong> A distorted profile, possibly Dalí himself</li>
                     </ul>
                     
-                    <h4 style="color: #333; margin: 25px 0 10px 0;">Key Themes:</h4>
-                    <p style="line-height: 1.7; color: #555; margin-bottom: 25px;">The painting explores time, memory, death, and the unconscious mind—core concepts of Surrealism and psychoanalysis.</p>
+                    <h4 style="color: #231f20; margin: 25px 0 10px 0; font-family: 'DIN 2014', Arial, sans-serif;">Key Themes:</h4>
+                    <p style="line-height: 1.7; color: #565759; margin-bottom: 25px; font-family: 'Signika', Arial, sans-serif;">The painting explores time, memory, death, and the unconscious mind—core concepts of Surrealism and psychoanalysis.</p>
                     
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #4facfe;">
-                        <h4 style="color: #333; margin: 0 0 10px 0;">Gallery Strategy:</h4>
-                        <p style="margin: 0; color: #555; line-height: 1.6;">Ask visitors "What time means to them" and "How memory changes over time" to create personal connections.</p>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #eab06b;">
+                        <h4 style="color: #231f20; margin: 0 0 10px 0; font-family: 'DIN 2014', Arial, sans-serif;">Gallery Strategy:</h4>
+                        <p style="margin: 0; color: #565759; line-height: 1.6; font-family: 'Signika', Arial, sans-serif;">Ask visitors "What time means to them" and "How memory changes over time" to create personal connections.</p>
                     </div>
                 </div>
             </div>
@@ -109,30 +121,29 @@
             <!-- Tab 4: Making Connections -->
             <div id="tab4" class="tab-content" style="display: none;">
                 <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                    <div style="background: #43e97b; color: white; padding: 8px 16px; border-radius: 20px; display: inline-block; font-size: 14px; font-weight: bold; margin-bottom: 20px;">TAB 4: MAKING CONNECTIONS</div>
                     
-                    <h2 style="color: #333; margin-bottom: 20px; font-size: 2em;">The Bigger Picture</h2>
+                    <h2 style="color: #231f20; margin-bottom: 20px; font-size: 2em; font-family: 'DIN 2014', Arial, sans-serif;">The Bigger Picture</h2>
                     
-                    <p style="font-size: 1.2em; color: #666; font-style: italic; margin-bottom: 25px; line-height: 1.6;">This tiny painting became one of the most recognizable images in art history—but why?</p>
+                    <p style="font-size: 1.2em; color: #565759; font-style: italic; margin-bottom: 25px; line-height: 1.6; font-family: 'Baskerville', Georgia, serif;">This tiny painting became one of the most recognizable images in art history—but why?</p>
                     
-                    <h4 style="color: #333; margin: 25px 0 15px 0;">Connections:</h4>
-                    <ul style="line-height: 1.8; color: #555; margin-bottom: 25px;">
+                    <h4 style="color: #231f20; margin: 25px 0 15px 0; font-family: 'DIN 2014', Arial, sans-serif;">Connections:</h4>
+                    <ul style="line-height: 1.8; color: #565759; margin-bottom: 25px; font-family: 'Signika', Arial, sans-serif;">
                         <li><strong>To Surrealism:</strong> Perfect example of making the impossible seem real</li>
                         <li><strong>To Dalí's work:</strong> Introduces techniques he'd use for decades</li>
                         <li><strong>To art history:</strong> Bridges classical technique with modern psychology</li>
                     </ul>
                     
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 25px 0;">
-                        <h4 style="color: #43e97b; margin-bottom: 15px;">Key Takeaways</h4>
-                        <ul style="line-height: 1.8; color: #333; margin: 0;">
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 25px 0; border-left: 4px solid #7ba550;">
+                        <h4 style="color: #cd234c; margin-bottom: 15px; font-family: 'DIN 2014', Arial, sans-serif;">Key Takeaways</h4>
+                        <ul style="line-height: 1.8; color: #231f20; margin: 0; font-family: 'Signika', Arial, sans-serif;">
                             <li><strong>Small scale, massive impact</strong> — proves that size doesn't determine significance</li>
                             <li><strong>Perfect fusion</strong> of technical skill with revolutionary concepts</li>
                             <li><strong>Gateway to understanding</strong> Surrealism and modern art's relationship with science</li>
                         </ul>
                     </div>
                     
-                    <h4 style="color: #333; margin: 25px 0 10px 0;">Course Continuity:</h4>
-                    <p style="line-height: 1.7; color: #555;">Next, we'll explore how Dalí developed these themes in his larger works and theatrical performances.</p>
+                    <h4 style="color: #231f20; margin: 25px 0 10px 0; font-family: 'DIN 2014', Arial, sans-serif;">Course Continuity:</h4>
+                    <p style="line-height: 1.7; color: #565759; font-family: 'Signika', Arial, sans-serif;">Next, we'll explore how Dalí developed these themes in his larger works and theatrical performances.</p>
                 </div>
             </div>
         </div>
@@ -150,8 +161,8 @@ function showTab(tabId) {
     // Reset all buttons
     var buttons = document.querySelectorAll('button[id^="btn"]');
     buttons.forEach(function(btn) {
-        btn.style.background = '#ddd';
-        btn.style.color = '#666';
+        btn.style.background = '#565759';
+        btn.style.color = 'white';
     });
     
     // Show selected tab
@@ -159,10 +170,10 @@ function showTab(tabId) {
     
     // Highlight active button
     var activeBtn = document.getElementById('btn' + tabId.slice(-1));
-    if (tabId === 'tab1') activeBtn.style.background = '#FF6B6B';
-    if (tabId === 'tab2') activeBtn.style.background = '#f093fb';
-    if (tabId === 'tab3') activeBtn.style.background = '#4facfe';
-    if (tabId === 'tab4') activeBtn.style.background = '#43e97b';
+    if (tabId === 'tab1') activeBtn.style.background = '#cd234c';
+    if (tabId === 'tab2') activeBtn.style.background = '#233e99';
+    if (tabId === 'tab3') activeBtn.style.background = '#53c8e9';
+    if (tabId === 'tab4') activeBtn.style.background = '#7ba550';
     activeBtn.style.color = 'white';
 }
 
