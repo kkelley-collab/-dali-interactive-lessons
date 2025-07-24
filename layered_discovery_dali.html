@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Signika', 'DIN 2014', Arial, sans-serif;
+            background: linear-gradient(135deg, #231f20 0%, #565759 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -44,7 +44,7 @@
 
         .info-layer {
             position: absolute;
-            background: rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.98);
             backdrop-filter: blur(10px);
             border-radius: 12px;
             padding: 20px;
@@ -53,7 +53,8 @@
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
-            max-width: 300px;
+            max-width: 320px;
+            border-left: 4px solid #cd234c;
         }
 
         .info-layer.active {
@@ -63,22 +64,24 @@
         }
 
         .info-layer h3 {
-            color: #333;
+            color: #231f20;
             margin-bottom: 10px;
             font-size: 1.3em;
+            font-family: 'DIN 2014', Arial, sans-serif;
         }
 
         .info-layer p {
-            color: #666;
+            color: #565759;
             line-height: 1.6;
             margin-bottom: 15px;
+            font-family: 'Signika', Arial, sans-serif;
         }
 
         .close-layer {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: #ff4757;
+            background: #cd234c;
             color: white;
             border: none;
             width: 25px;
@@ -89,14 +92,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: bold;
         }
 
         .discovery-hotspot {
             position: absolute;
             width: 40px;
             height: 40px;
-            background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0.3) 70%);
-            border: 3px solid #FFD700;
+            background: radial-gradient(circle, rgba(205, 35, 76, 0.8) 0%, rgba(205, 35, 76, 0.3) 70%);
+            border: 3px solid #cd234c;
             border-radius: 50%;
             cursor: pointer;
             transform: scale(0);
@@ -106,12 +110,12 @@
 
         .discovery-hotspot:hover {
             transform: scale(1.2);
-            background: radial-gradient(circle, rgba(255,215,0,1) 0%, rgba(255,215,0,0.5) 70%);
+            background: radial-gradient(circle, rgba(205, 35, 76, 1) 0%, rgba(205, 35, 76, 0.5) 70%);
         }
 
         .discovery-hotspot.clicked {
-            background: radial-gradient(circle, rgba(46, 204, 113, 0.8) 0%, rgba(46, 204, 113, 0.3) 70%);
-            border-color: #2ecc71;
+            background: radial-gradient(circle, rgba(123, 165, 80, 0.8) 0%, rgba(123, 165, 80, 0.3) 70%);
+            border-color: #7ba550;
         }
 
         @keyframes appear {
@@ -120,8 +124,8 @@
         }
 
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
-            50% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(205, 35, 76, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(205, 35, 76, 0); }
         }
 
         .control-panel {
@@ -129,7 +133,7 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
             padding: 20px 30px;
             border-radius: 50px;
@@ -149,25 +153,26 @@
             text-transform: uppercase;
             font-size: 12px;
             letter-spacing: 1px;
+            font-family: 'DIN 2014', Arial, sans-serif;
         }
 
         .layer-btn.basics {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: #cd234c;
             color: white;
         }
 
         .layer-btn.story {
-            background: linear-gradient(45deg, #f093fb, #f5576c);
+            background: #233e99;
             color: white;
         }
 
         .layer-btn.details {
-            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            background: #53c8e9;
             color: white;
         }
 
         .layer-btn.connections {
-            background: linear-gradient(45deg, #43e97b, #38f9d7);
+            background: #7ba550;
             color: white;
         }
 
@@ -186,16 +191,17 @@
             top: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
             padding: 15px 25px;
             border-radius: 25px;
             font-weight: bold;
-            color: #333;
+            color: #231f20;
+            font-family: 'DIN 2014', Arial, sans-serif;
         }
 
         .discovery-counter {
-            color: #667eea;
+            color: #cd234c;
         }
 
         /* Layer-specific hotspot positions */
@@ -215,28 +221,29 @@
         .hotspot-connections-2 { top: 50%; right: 30%; animation-delay: 0.5s; }
 
         /* Info layer positioning */
-        .layer-basics-1 { top: -20px; left: -320px; }
-        .layer-basics-2 { bottom: -20px; right: -320px; }
-        .layer-basics-3 { bottom: -150px; left: -250px; }
+        .layer-basics-1 { top: -20px; left: -340px; }
+        .layer-basics-2 { bottom: -20px; right: -340px; }
+        .layer-basics-3 { bottom: -150px; left: -270px; }
 
-        .layer-story-1 { top: -20px; left: -320px; }
-        .layer-story-2 { top: 20px; right: -320px; }
+        .layer-story-1 { top: -20px; left: -340px; }
+        .layer-story-2 { top: 20px; right: -340px; }
 
-        .layer-details-1 { top: -100px; left: -200px; }
-        .layer-details-2 { top: -50px; right: -320px; }
-        .layer-details-3 { bottom: -20px; left: -320px; }
-        .layer-details-4 { bottom: -100px; right: -200px; }
+        .layer-details-1 { top: -100px; left: -220px; }
+        .layer-details-2 { top: -50px; right: -340px; }
+        .layer-details-3 { bottom: -20px; left: -340px; }
+        .layer-details-4 { bottom: -100px; right: -220px; }
 
-        .layer-connections-1 { top: -80px; left: -320px; }
-        .layer-connections-2 { top: -50px; right: -320px; }
+        .layer-connections-1 { top: -80px; left: -340px; }
+        .layer-connections-2 { top: -50px; right: -340px; }
 
         .quote-highlight {
-            background: linear-gradient(45deg, #f093fb, #f5576c);
+            background: linear-gradient(45deg, #233e99, #53c8e9);
             color: white;
             padding: 15px;
             border-radius: 8px;
             font-style: italic;
             margin-top: 10px;
+            font-family: 'Baskerville', Georgia, serif;
         }
     </style>
 </head>
@@ -244,12 +251,12 @@
     <div class="discovery-container">
         <div class="progress-indicator">
             <span>Discovered: </span>
-            <span class="discovery-counter">0/3</span>
+            <span class="discovery-counter" id="discoveryCounter">0/3</span>
             <span> | Current Layer: <span id="currentLayer">Meet the Artwork</span></span>
         </div>
 
         <div class="artwork-stage">
-            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop" 
+            <img src="https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg" 
                  alt="The Persistence of Memory by Salvador Dalí" class="base-artwork">
 
             <!-- BASICS LAYER HOTSPOTS & INFO -->
@@ -284,7 +291,7 @@
             <div class="info-layer layer-story-1" id="info-story-1">
                 <button class="close-layer" onclick="closeLayer('story-1')">×</button>
                 <h3>The Inspiration Moment</h3>
-                <p>On a hot August evening in 1931, Dalí watched Camembert cheese melting in the Catalonian sun...</p>
+                <p>On a hot August evening in 1931, Dalí watched Camembert cheese melting in the Catalonian heat...</p>
                 <div class="quote-highlight">
                     "I understood that I had to paint the disintegration of persistence of memory." —Dalí
                 </div>
@@ -316,4 +323,133 @@
             </div>
 
             <div class="discovery-hotspot hotspot-details-3 layer-details" data-info="details-3" style="display: none;"></div>
-            <div class="info-layer layer-details-3" id="info-details
+            <div class="info-layer layer-details-3" id="info-details-3">
+                <button class="close-layer" onclick="closeLayer('details-3')">×</button>
+                <h3>The Closed Orange Watch</h3>
+                <p>Covered in ants, this represents decay and the anxiety of time. The ants are a recurring Dalían symbol of death and putrefaction.</p>
+                <p>Notice how it contrasts with the fluid, melting timepieces around it.</p>
+            </div>
+
+            <div class="discovery-hotspot hotspot-details-4 layer-details" data-info="details-4" style="display: none;"></div>
+            <div class="info-layer layer-details-4" id="info-details-4">
+                <button class="close-layer" onclick="closeLayer('details-4')">×</button>
+                <h3>The Landscape</h3>
+                <p>This is Port Lligat, Dalí's beloved coastal home in Catalonia. The cliffs and coastline appear in many of his works.</p>
+                <p>The barren, dreamlike quality transforms his real environment into something surreal.</p>
+            </div>
+
+            <!-- CONNECTIONS LAYER HOTSPOTS & INFO -->
+            <div class="discovery-hotspot hotspot-connections-1 layer-connections" data-info="connections-1" style="display: none;"></div>
+            <div class="info-layer layer-connections-1" id="info-connections-1">
+                <button class="close-layer" onclick="closeLayer('connections-1')">×</button>
+                <h3>Surrealist Movement</h3>
+                <p>This painting perfectly exemplifies Surrealism's goal: making the impossible seem photographically real.</p>
+                <p>Dalí's technical precision gives dreamlike imagery convincing weight and presence.</p>
+            </div>
+
+            <div class="discovery-hotspot hotspot-connections-2 layer-connections" data-info="connections-2" style="display: none;"></div>
+            <div class="info-layer layer-connections-2" id="info-connections-2">
+                <button class="close-layer" onclick="closeLayer('connections-2')">×</button>
+                <h3>Modern Psychology</h3>
+                <p>The painting bridges art and science, visualizing Freud's theories about memory, dreams, and the unconscious mind.</p>
+                <p>It also reflects Einstein's relativity theory, showing time as flexible rather than absolute.</p>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <button class="layer-btn basics active" onclick="showLayer('basics')">Meet Artwork</button>
+            <button class="layer-btn story" onclick="showLayer('story')">Dalí's Story</button>
+            <button class="layer-btn details" onclick="showLayer('details')">Look Closer</button>
+            <button class="layer-btn connections" onclick="showLayer('connections')">Connections</button>
+        </div>
+    </div>
+
+    <script>
+        let currentLayer = 'basics';
+        let discoveredCount = 0;
+        const maxDiscoveries = { basics: 3, story: 2, details: 4, connections: 2 };
+        let layerProgress = { basics: 0, story: 0, details: 0, connections: 0 };
+
+        function showLayer(layer) {
+            // Hide all hotspots and close any open info layers
+            document.querySelectorAll('.discovery-hotspot').forEach(spot => {
+                spot.style.display = 'none';
+                spot.classList.remove('clicked');
+            });
+            document.querySelectorAll('.info-layer').forEach(info => {
+                info.classList.remove('active');
+            });
+
+            // Show hotspots for current layer
+            document.querySelectorAll(`.layer-${layer}`).forEach(spot => {
+                spot.style.display = 'block';
+            });
+
+            // Update button states
+            document.querySelectorAll('.layer-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.layer-btn.${layer}`).classList.add('active');
+
+            // Update progress indicator
+            currentLayer = layer;
+            document.getElementById('currentLayer').textContent = getLayerName(layer);
+            updateDiscoveryCounter();
+        }
+
+        function getLayerName(layer) {
+            const names = {
+                basics: 'Meet the Artwork',
+                story: "Dalí's Story", 
+                details: 'Looking Closer',
+                connections: 'Making Connections'
+            };
+            return names[layer];
+        }
+
+        function updateDiscoveryCounter() {
+            discoveredCount = layerProgress[currentLayer];
+            const maxForLayer = maxDiscoveries[currentLayer];
+            document.getElementById('discoveryCounter').textContent = `${discoveredCount}/${maxForLayer}`;
+        }
+
+        // Add click handlers to hotspots
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.discovery-hotspot').forEach(hotspot => {
+                hotspot.addEventListener('click', function() {
+                    const infoId = this.getAttribute('data-info');
+                    const infoLayer = document.getElementById(`info-${infoId}`);
+                    
+                    // Close any other open info layers
+                    document.querySelectorAll('.info-layer').forEach(info => {
+                        if (info.id !== `info-${infoId}`) {
+                            info.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle this info layer
+                    if (infoLayer.classList.contains('active')) {
+                        infoLayer.classList.remove('active');
+                    } else {
+                        infoLayer.classList.add('active');
+                        // Mark as discovered
+                        if (!this.classList.contains('clicked')) {
+                            this.classList.add('clicked');
+                            layerProgress[currentLayer]++;
+                            updateDiscoveryCounter();
+                        }
+                    }
+                });
+            });
+        });
+
+        function closeLayer(infoId) {
+            document.getElementById(`info-${infoId}`).classList.remove('active');
+        }
+
+        // Initialize
+        showLayer('basics');
+    </script>
+</body>
+</html>
